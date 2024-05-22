@@ -1,0 +1,57 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: windows-test
+spec:
+  running: false
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: win10-test
+    spec:
+      domain:
+        cpu:
+          cores: 4
+        features:
+          acpi: {}
+          apic: {}
+          hyperv:
+            relaxed: {}
+            vapic: {}
+            spinlocks:
+              spinlocks: 8191
+        devices:
+          disks:
+          - cdrom:
+              bus: sata
+            name: ins-iso
+            bootOrder: 2
+          - disk:
+              bus: virtio
+            name: harddrive
+            bootOrder: 1
+          - cdrom:
+              bus: sata
+            name: virtiocontainer
+          interfaces:
+          - name: default
+            model: virtio
+            bridge: {}
+        machine:
+          type: q35
+        resources:
+          requests:
+            memory: 16G
+      networks:
+      - name: default
+        pod: {}
+      volumes:
+      - name: ins-iso
+        persistentVolumeClaim:
+          claimName: img2-windows-iso
+      - name: harddrive
+        persistentVolumeClaim:
+          claimName: win-drive
+      - name: virtiocontainer
+        containerDisk:
+          image: kubevirt/virtio-container-disk

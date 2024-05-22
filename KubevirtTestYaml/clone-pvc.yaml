@@ -1,0 +1,17 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  annotations:
+    cdi.kubevirt.io/storage.deleteAfterCompletion: "false"
+  name: "tpl-u1804-cloudimg"
+spec:
+  source:
+    pvc:
+      name: image-01fcea12
+      namespace: default
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: "20Gi"  # Size needs to be specified

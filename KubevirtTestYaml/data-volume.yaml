@@ -1,0 +1,17 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  labels:
+    app: test-data-volume
+  name: img-u1804-cloudimg
+  namespace: default
+spec:
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 4Gi
+  source:
+    http:
+      url: http://minio.kubesphere-system.svc:9000/ecpaas-images/ubuntu-18.04-server-cloudimg-i386.img
