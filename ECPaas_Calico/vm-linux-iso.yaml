@@ -3,7 +3,7 @@ kind: VirtualMachine
 metadata:
   name: linux-iso-test
 spec:
-  running: true
+  running: false
   template:
     metadata:
       labels:
@@ -41,3 +41,4 @@ spec:
       - name: linux-iso-drive
         persistentVolumeClaim:
           claimName: linux-drive
+        

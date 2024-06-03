@@ -1,0 +1,17 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  labels:
+    app: data-volume
+  name: win-drive
+  namespace: default
+spec:
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 50Gi
+  source:
+    http:
+      url: http://minio.minio-ecpaas.svc:9000/ecpaas-images/virtio-win-0.1.240.iso

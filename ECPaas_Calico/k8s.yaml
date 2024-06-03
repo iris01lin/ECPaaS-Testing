@@ -1,0 +1,44 @@
+
+apiVersion: kubekey.kubesphere.io/v1alpha2
+kind: Cluster
+metadata:
+  name: sample
+spec:
+  hosts:
+  - {name: shiuanao-k8s124-1, address: 192.168.40.86, internalAddress: 192.168.40.86, user: shiuanao_leow, password: "admin"}
+  roleGroups:
+    etcd:
+    - shiuanao-k8s124-1
+    control-plane: 
+    - shiuanao-k8s124-1
+    worker:
+    - shiuanao-k8s124-1
+  controlPlaneEndpoint:
+    ## Internal loadbalancer for apiservers 
+    # internalLoadbalancer: haproxy
+
+    domain: lb.kubesphere.local
+    address: ""
+    port: 6443
+  kubernetes:
+    version: 1.22.9
+    clusterName: cluster.local
+    autoRenewCerts: true
+    containerManager: docker
+  etcd:
+    type: kubekey
+  network:
+    plugin: "calico"
+    kubePodsCIDR: 192.16.0.0/16
+    kubeServiceCIDR: 10.96.0.0/12
+    ## multus support. https://github.com/k8snetworkplumbingwg/multus-cni
+    multusCNI:
+      enabled: false
+  registry:
+    privateRegistry: ""
+    namespaceOverride: ""
+    registryMirrors: []
+    insecureRegistries: []
+  addons: []
+
+

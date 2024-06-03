@@ -1,0 +1,18 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  labels:
+    app: data-volume
+  name: img2-windows-iso
+  namespace: default
+spec:
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 5Gi
+  source:
+    http:
+      url: http://minio.minio-ecpaas.svc:9000/ecpaas-images/Windows.iso
+

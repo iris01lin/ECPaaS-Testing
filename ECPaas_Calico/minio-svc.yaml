@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+  namespace: minio-ecpaas
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: service
+#    nodePort: 32111
+    port: 9000
+    protocol: TCP
+    targetPort: 9000
+  - name: mgmt
+#    nodePort: 32111
+    port: 9090
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: minio
+  type: NodePort
+
